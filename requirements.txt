@@ -1,0 +1,6 @@
+fastapi==0.141.1
+uvicorn==0.54.0
+python-dotenv==1.2.3
+pydantic==2.13.5
+hindsight-client==0.10.1
+groq==1.7.0
