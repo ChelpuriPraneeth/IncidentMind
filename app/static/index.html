@@ -1,0 +1,2214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>IncidentMind</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        body {
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+
+        /* ================= HEADER ================= */
+
+        .header {
+            background: #101828;
+            color: white;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+
+        .logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #4f46e5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+
+        .brand h1 {
+            font-size: 23px;
+        }
+
+
+        .brand span {
+            color: #98a2b3;
+            font-size: 13px;
+        }
+
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #8ef0b3;
+            font-size: 14px;
+        }
+
+
+        .status-dot {
+            width: 9px;
+            height: 9px;
+            background: #22c55e;
+            border-radius: 50%;
+        }
+
+
+        /* ================= MAIN ================= */
+
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 25px;
+        }
+
+
+        .hero {
+            margin-bottom: 25px;
+        }
+
+
+        .hero h2 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+
+        .hero p {
+            color: #667085;
+            font-size: 15px;
+        }
+
+
+        .grid {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 22px;
+        }
+
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 22px;
+            box-shadow: 0 5px 18px rgba(16, 24, 40, 0.06);
+            border: 1px solid #eaecf0;
+        }
+
+
+        .card h3 {
+            margin-bottom: 7px;
+            font-size: 18px;
+        }
+
+
+        .subtitle {
+            color: #667085;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+
+        /* ================= INPUTS ================= */
+
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+
+        .field {
+            width: 100%;
+            border: 1px solid #d0d5dd;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+        }
+
+
+        .field:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.08);
+        }
+
+
+        textarea {
+            width: 100%;
+            min-height: 180px;
+            resize: vertical;
+            border: 1px solid #d0d5dd;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 14px;
+            outline: none;
+        }
+
+
+        /* ================= BUTTONS ================= */
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+
+        button {
+            border: none;
+            border-radius: 10px;
+            padding: 12px 18px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+
+        .primary {
+            background: #4f46e5;
+            color: white;
+        }
+
+
+        .primary:hover {
+            background: #4338ca;
+        }
+
+
+        .secondary {
+            background: #eef2ff;
+            color: #3730a3;
+        }
+
+
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+
+        /* ================= SUMMARY ================= */
+
+        .incident-summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+
+        .summary-item {
+            background: #f8faff;
+            border: 1px solid #e4e7ec;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+
+        .summary-label {
+            font-size: 11px;
+            color: #667085;
+            margin-bottom: 4px;
+        }
+
+
+        .summary-value {
+            font-size: 13px;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+
+        .severity-critical {
+            color: #b42318;
+        }
+
+
+        .severity-high {
+            color: #b54708;
+        }
+
+
+        .severity-medium {
+            color: #b54708;
+        }
+
+
+        .severity-low {
+            color: #027a48;
+        }
+
+
+        /* ================= MEMORY ================= */
+
+        .memory-box {
+            background: #f8faff;
+            border: 1px solid #dbe4ff;
+            border-radius: 12px;
+            padding: 15px;
+            max-height: 380px;
+            overflow-y: auto;
+        }
+
+
+        .memory-header {
+            font-size: 12px;
+            color: #667085;
+            margin-bottom: 12px;
+        }
+
+
+        .memory {
+            background: white;
+            border-left: 4px solid #4f46e5;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+
+        .empty {
+            color: #98a2b3;
+            text-align: center;
+            padding: 50px 10px;
+        }
+
+
+        /* ================= AI ================= */
+
+        .learning {
+            margin-top: 22px;
+        }
+
+
+        .analysis {
+            margin-top: 18px;
+            background: #101828;
+            color: #e4e7ec;
+            border-radius: 12px;
+            padding: 18px;
+            min-height: 280px;
+            max-height: 600px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            line-height: 1.55;
+            font-size: 13px;
+        }
+
+
+        /* ================= MEMORY IMPACT ================= */
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+
+        .impact-card {
+            background: #f8faff;
+            border: 1px solid #dbe4ff;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+
+        .impact-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            background: #eef2ff;
+            color: #4f46e5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+
+        .impact-number {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+
+        .impact-label {
+            color: #667085;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+
+        .impact-note {
+            margin-top: 14px;
+            padding: 13px;
+            background: #f8faff;
+            border: 1px solid #dbe4ff;
+            border-radius: 10px;
+            font-size: 13px;
+            color: #475467;
+        }
+
+
+        /* ================= TIMELINE ================= */
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+
+        .timeline-step {
+            position: relative;
+            background: #f8faff;
+            border: 1px solid #e4e7ec;
+            border-radius: 12px;
+            padding: 15px 12px;
+            min-height: 90px;
+            transition: all 0.25s ease;
+        }
+
+
+        .timeline-step.completed {
+            border-color: #4f46e5;
+            background: #eef2ff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.10);
+        }
+
+
+        .timeline-step.active {
+            border-color: #4f46e5;
+            background: #f5f3ff;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.08);
+        }
+
+
+        .step-number {
+            font-size: 11px;
+            font-weight: bold;
+            color: #667085;
+            margin-bottom: 7px;
+        }
+
+
+        .step-title {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+
+        .step-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #e4e7ec;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            color: #667085;
+        }
+
+
+        .timeline-step.completed .step-icon {
+            background: #4f46e5;
+            color: white;
+        }
+
+
+        .timeline-status {
+            margin-top: 15px;
+            padding: 13px;
+            border-radius: 10px;
+            background: #f8faff;
+            border: 1px solid #dbe4ff;
+            color: #475467;
+            font-size: 13px;
+        }
+
+
+        /* ================= LEARNING ================= */
+
+        .learning-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+
+        .learning-form textarea {
+            min-height: 120px;
+        }
+
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+
+        .outcome {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+
+        .outcome label {
+            border: 1px solid #d0d5dd;
+            border-radius: 9px;
+            padding: 10px 14px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+
+        .learning-status {
+            margin-top: 15px;
+            color: #475467;
+            font-size: 13px;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        .footer {
+            text-align: center;
+            color: #98a2b3;
+            padding: 35px;
+            font-size: 13px;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1000px) {
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .incident-summary {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .impact-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .timeline {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .metadata-grid,
+            .learning-form {
+                grid-template-columns: 1fr;
+            }
+
+            .incident-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .impact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .header {
+                padding: 15px 20px;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .status {
+                display: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <div class="brand">
+
+        <div class="logo">
+            IM
+        </div>
+
+        <div>
+
+            <h1>IncidentMind</h1>
+
+            <span>
+                Memory-powered incident response
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="status">
+
+        <div class="status-dot"></div>
+
+        Hindsight Memory Online
+
+    </div>
+
+</header>
+
+
+
+<main class="container">
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <h2>
+            Production Incident Intelligence
+        </h2>
+
+        <p>
+            Investigate incidents using what your engineering team has already learned.
+        </p>
+
+    </section>
+
+
+
+    <!-- ================= INCIDENT + MEMORY ================= -->
+
+    <div class="grid">
+
+
+        <!-- ================= NEW INCIDENT ================= -->
+
+        <section class="card">
+
+            <h3>
+                New Incident
+            </h3>
+
+            <p class="subtitle">
+                Create a structured incident and investigate it using historical memory.
+            </p>
+
+
+            <div class="metadata-grid">
+
+
+                <input
+                    id="incidentId"
+                    class="field"
+                    placeholder="Incident ID e.g. INC-1003"
+                >
+
+
+                <input
+                    id="service"
+                    class="field"
+                    placeholder="Service e.g. payments-api"
+                >
+
+
+                <select
+                    id="severity"
+                    class="field"
+                >
+
+                    <option value="CRITICAL">
+                        CRITICAL
+                    </option>
+
+                    <option value="HIGH">
+                        HIGH
+                    </option>
+
+                    <option value="MEDIUM">
+                        MEDIUM
+                    </option>
+
+                    <option value="LOW">
+                        LOW
+                    </option>
+
+                </select>
+
+
+                <input
+                    id="reportedAt"
+                    class="field"
+                    type="datetime-local"
+                >
+
+            </div>
+
+
+            <textarea
+                id="incident"
+                placeholder="Describe the production problem..."
+            ></textarea>
+
+
+            <div class="button-row">
+
+                <button
+                    class="primary"
+                    onclick="investigate()"
+                    id="investigateBtn"
+                >
+                    Investigate Incident
+                </button>
+
+
+                <button
+                    class="secondary"
+                    onclick="loadExample()"
+                >
+                    Load Example
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= RELEVANT MEMORY ================= -->
+
+        <section class="card">
+
+            <h3>
+                Relevant Memory
+            </h3>
+
+            <p class="subtitle">
+                Historical experience recalled by Hindsight.
+            </p>
+
+
+            <div class="incident-summary">
+
+
+                <div class="summary-item">
+
+                    <div class="summary-label">
+                        Incident
+                    </div>
+
+                    <div
+                        id="summaryId"
+                        class="summary-value"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <div class="summary-label">
+                        Service
+                    </div>
+
+                    <div
+                        id="summaryService"
+                        class="summary-value"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <div class="summary-label">
+                        Severity
+                    </div>
+
+                    <div
+                        id="summarySeverity"
+                        class="summary-value"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <div class="summary-label">
+                        Memories
+                    </div>
+
+                    <div
+                        id="summaryMemoryCount"
+                        class="summary-value"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div
+                id="memories"
+                class="memory-box"
+            >
+
+                <div class="empty">
+                    No investigation performed yet.
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+
+    <!-- ================= AI INVESTIGATION ================= -->
+
+    <section class="card learning">
+
+        <h3>
+            AI Investigation
+        </h3>
+
+        <p class="subtitle">
+            Groq reasoning grounded in historical incident memory.
+        </p>
+
+
+        <div
+            id="analysis"
+            class="analysis"
+        >
+
+            <div class="empty">
+                Submit an incident to begin the investigation.
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= MEMORY IMPACT ================= -->
+
+    <section class="card learning">
+
+        <h3>
+            Memory Impact
+        </h3>
+
+        <p class="subtitle">
+            What Hindsight contributed to this investigation.
+        </p>
+
+
+        <div class="impact-grid">
+
+
+            <div class="impact-card">
+
+                <div class="impact-icon">
+                    M
+                </div>
+
+                <div
+                    id="impactMemories"
+                    class="impact-number"
+                >
+                    0
+                </div>
+
+                <div class="impact-label">
+                    Historical memories recalled
+                </div>
+
+            </div>
+
+
+            <div class="impact-card">
+
+                <div class="impact-icon">
+                    I
+                </div>
+
+                <div
+                    id="impactIncidents"
+                    class="impact-number"
+                >
+                    0
+                </div>
+
+                <div class="impact-label">
+                    Related incidents mentioned
+                </div>
+
+            </div>
+
+
+            <div class="impact-card">
+
+                <div class="impact-icon">
+                    ✓
+                </div>
+
+                <div
+                    id="impactSuccessful"
+                    class="impact-number"
+                >
+                    0
+                </div>
+
+                <div class="impact-label">
+                    Successful resolutions remembered
+                </div>
+
+            </div>
+
+
+            <div class="impact-card">
+
+                <div class="impact-icon">
+                    +
+                </div>
+
+                <div
+                    id="impactLearned"
+                    class="impact-number"
+                >
+                    0
+                </div>
+
+                <div class="impact-label">
+                    New experiences learned
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            id="impactNote"
+            class="impact-note"
+        >
+            Waiting for an investigation.
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= LEARNING TIMELINE ================= -->
+
+    <section class="card learning">
+
+        <h3>
+            Incident Learning Journey
+        </h3>
+
+        <p class="subtitle">
+            See how IncidentMind detects, remembers, investigates, and learns.
+        </p>
+
+
+        <div class="timeline">
+
+
+            <div
+                id="step-detected"
+                class="timeline-step"
+            >
+
+                <div class="step-number">
+                    STEP 1
+                </div>
+
+                <div class="step-title">
+                    Incident Detected
+                </div>
+
+                <div class="step-icon">
+                    1
+                </div>
+
+            </div>
+
+
+            <div
+                id="step-memory"
+                class="timeline-step"
+            >
+
+                <div class="step-number">
+                    STEP 2
+                </div>
+
+                <div class="step-title">
+                    Memory Recalled
+                </div>
+
+                <div class="step-icon">
+                    2
+                </div>
+
+            </div>
+
+
+            <div
+                id="step-analysis"
+                class="timeline-step"
+            >
+
+                <div class="step-number">
+                    STEP 3
+                </div>
+
+                <div class="step-title">
+                    AI Analysis
+                </div>
+
+                <div class="step-icon">
+                    3
+                </div>
+
+            </div>
+
+
+            <div
+                id="step-resolution"
+                class="timeline-step"
+            >
+
+                <div class="step-number">
+                    STEP 4
+                </div>
+
+                <div class="step-title">
+                    Resolution
+                </div>
+
+                <div class="step-icon">
+                    4
+                </div>
+
+            </div>
+
+
+            <div
+                id="step-learned"
+                class="timeline-step"
+            >
+
+                <div class="step-number">
+                    STEP 5
+                </div>
+
+                <div class="step-title">
+                    Memory Learned
+                </div>
+
+                <div class="step-icon">
+                    5
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            id="timelineStatus"
+            class="timeline-status"
+        >
+            Waiting for an incident...
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= TEACH INCIDENTMIND ================= -->
+
+    <section class="card learning">
+
+        <h3>
+            Teach IncidentMind
+        </h3>
+
+        <p class="subtitle">
+            Record what happened after the investigation so future incidents
+            can benefit from the experience.
+        </p>
+
+
+        <div class="learning-form">
+
+
+            <div class="full">
+
+                <textarea
+                    id="resolution"
+                    placeholder="What resolution was applied?"
+                ></textarea>
+
+            </div>
+
+
+            <div>
+
+                <textarea
+                    id="engineerNote"
+                    placeholder="Engineer note or lesson learned..."
+                ></textarea>
+
+            </div>
+
+
+            <div>
+
+                <div class="outcome">
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="outcome"
+                            value="true"
+                            checked
+                        >
+
+                        Successful
+
+                    </label>
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="outcome"
+                            value="false"
+                        >
+
+                        Unsuccessful
+
+                    </label>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="saveResolution()"
+            >
+                Save Experience
+            </button>
+
+        </div>
+
+
+        <div
+            id="learningStatus"
+            class="learning-status"
+        ></div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<footer class="footer">
+
+    IncidentMind • AI incident response with persistent memory
+
+</footer>
+
+
+
+<script>
+
+
+// ============================================================
+// GLOBAL STATE
+// ============================================================
+
+window.currentIncident = "";
+window.currentIncidentId = "";
+window.currentService = "";
+window.currentSeverity = "";
+window.currentReportedAt = "";
+
+
+
+// ============================================================
+// TIMESTAMP
+// ============================================================
+
+function getTimestamp() {
+
+    const field =
+        document.getElementById("reportedAt");
+
+
+    if (field.value) {
+
+        return new Date(
+            field.value
+        ).toISOString();
+
+    }
+
+
+    return new Date().toISOString();
+
+}
+
+
+
+// ============================================================
+// DEFAULT TIMESTAMP
+// ============================================================
+
+function setDefaultTimestamp() {
+
+    const field =
+        document.getElementById("reportedAt");
+
+
+    const now =
+        new Date();
+
+
+    now.setMinutes(
+        now.getMinutes() -
+        now.getTimezoneOffset()
+    );
+
+
+    field.value =
+        now.toISOString().slice(0, 16);
+
+}
+
+
+
+// ============================================================
+// RESET TIMELINE
+// ============================================================
+
+function resetTimeline() {
+
+    const steps = [
+        "step-detected",
+        "step-memory",
+        "step-analysis",
+        "step-resolution",
+        "step-learned"
+    ];
+
+
+    steps.forEach(
+        id => {
+
+            const element =
+                document.getElementById(id);
+
+
+            element.classList.remove(
+                "completed",
+                "active"
+            );
+
+        }
+    );
+
+
+    document.getElementById(
+        "timelineStatus"
+    ).innerText =
+        "Waiting for an incident...";
+
+}
+
+
+
+// ============================================================
+// UPDATE TIMELINE
+// ============================================================
+
+function updateTimeline(step) {
+
+    const steps = [
+        "step-detected",
+        "step-memory",
+        "step-analysis",
+        "step-resolution",
+        "step-learned"
+    ];
+
+
+    const messages = [
+
+        "Waiting for an incident...",
+
+        "✓ Incident detected and structured.",
+
+        "✓ Historical experience recalled from Hindsight.",
+
+        "✓ Groq completed the investigation using memory.",
+
+        "✓ Engineer resolution recorded.",
+
+        "✓ New experience stored in long-term memory."
+
+    ];
+
+
+    steps.forEach(
+        id => {
+
+            const element =
+                document.getElementById(id);
+
+
+            element.classList.remove(
+                "completed",
+                "active"
+            );
+
+        }
+    );
+
+
+    for (
+        let i = 0;
+        i < step;
+        i++
+    ) {
+
+        document.getElementById(
+            steps[i]
+        ).classList.add(
+            "completed"
+        );
+
+    }
+
+
+    if (
+        step > 0 &&
+        step <= steps.length
+    ) {
+
+        document.getElementById(
+            steps[step - 1]
+        ).classList.add(
+            "active"
+        );
+
+    }
+
+
+    document.getElementById(
+        "timelineStatus"
+    ).innerText =
+        messages[step] || messages[0];
+
+}
+
+
+
+// ============================================================
+// MEMORY IMPACT
+// ============================================================
+
+function updateMemoryImpact(memories) {
+
+    const count =
+        memories ? memories.length : 0;
+
+
+    document.getElementById(
+        "impactMemories"
+    ).innerText =
+        count;
+
+
+    function updateMemoryImpact(memories) {
+
+    const count =
+        memories ? memories.length : 0;
+
+    document.getElementById("impactMemories").innerText =
+        count;
+
+    const incidentIds = new Set();
+    const successfulIncidentIds = new Set();
+
+    if (memories) {
+
+        memories.forEach(memory => {
+
+            const ids =
+                memory.match(/INC-\d+/gi) || [];
+
+            ids.forEach(id => {
+
+                const incidentId =
+                    id.toUpperCase();
+
+                incidentIds.add(incidentId);
+
+                if (
+                    /resolved|successful|resolution/i.test(memory)
+                ) {
+                    successfulIncidentIds.add(
+                        incidentId
+                    );
+                }
+
+            });
+
+        });
+
+    }
+
+    document.getElementById("impactIncidents").innerText =
+        incidentIds.size;
+
+    document.getElementById("impactSuccessful").innerText =
+        successfulIncidentIds.size;
+
+    document.getElementById("impactLearned").innerText =
+        0;
+
+    document.getElementById("impactNote").innerText =
+        count > 0
+            ? `Hindsight supplied ${count} historical memories to ground this investigation.`
+            : "No relevant historical memory was found.";
+}
+    let successfulResolutions = 0;
+
+
+    const incidentIds = new Set();
+
+
+    if (memories) {
+
+        memories.forEach(
+            memory => {
+
+                const incidentMatches =
+                    memory.match(
+                        /INC-\d+/gi
+                    );
+
+
+                if (incidentMatches) {
+
+                    incidentMatches.forEach(
+                        id => incidentIds.add(
+                            id.toUpperCase()
+                        )
+                    );
+
+                }
+
+
+                if (
+                    /successful|resolved|resolution/i
+                    .test(memory)
+                ) {
+
+                    successfulResolutions++;
+
+                }
+
+            }
+        );
+
+    }
+
+
+    relatedIncidents =
+        incidentIds.size;
+
+
+    document.getElementById(
+        "impactIncidents"
+    ).innerText =
+        relatedIncidents;
+
+
+    document.getElementById(
+        "impactSuccessful"
+    ).innerText =
+        successfulResolutions;
+
+
+    document.getElementById(
+        "impactLearned"
+    ).innerText =
+        0;
+
+
+    document.getElementById(
+        "impactNote"
+    ).innerText =
+        count > 0
+            ? `Hindsight supplied ${count} historical memories to ground this investigation.`
+            : "No relevant historical memory was found.";
+
+}
+
+
+
+// ============================================================
+// LOAD EXAMPLE
+// ============================================================
+
+function loadExample() {
+
+    document.getElementById(
+        "incidentId"
+    ).value =
+        "INC-1003";
+
+
+    document.getElementById(
+        "service"
+    ).value =
+        "payments-api";
+
+
+    document.getElementById(
+        "severity"
+    ).value =
+        "CRITICAL";
+
+
+    setDefaultTimestamp();
+
+
+    document.getElementById(
+        "incident"
+    ).value =
+`The payment service is returning 503 errors after a new release.
+Database load is extremely high and customer payment requests are timing out.`;
+
+
+    resetTimeline();
+
+
+    document.getElementById(
+        "impactMemories"
+    ).innerText = "0";
+
+
+    document.getElementById(
+        "impactIncidents"
+    ).innerText = "0";
+
+
+    document.getElementById(
+        "impactSuccessful"
+    ).innerText = "0";
+
+
+    document.getElementById(
+        "impactLearned"
+    ).innerText = "0";
+
+
+    document.getElementById(
+        "impactNote"
+    ).innerText =
+        "Waiting for an investigation.";
+
+}
+
+
+
+// ============================================================
+// INVESTIGATE
+// ============================================================
+
+async function investigate() {
+
+
+    const incidentId =
+        document.getElementById(
+            "incidentId"
+        ).value.trim();
+
+
+    const service =
+        document.getElementById(
+            "service"
+        ).value.trim();
+
+
+    const severity =
+        document.getElementById(
+            "severity"
+        ).value;
+
+
+    const incident =
+        document.getElementById(
+            "incident"
+        ).value.trim();
+
+
+    const reportedAt =
+        getTimestamp();
+
+
+    // ---------------- VALIDATION ----------------
+
+    if (!incidentId) {
+
+        alert(
+            "Please enter an Incident ID."
+        );
+
+        return;
+
+    }
+
+
+    if (!service) {
+
+        alert(
+            "Please enter the service name."
+        );
+
+        return;
+
+    }
+
+
+    if (!incident) {
+
+        alert(
+            "Please describe the incident."
+        );
+
+        return;
+
+    }
+
+
+    // ---------------- STATE ----------------
+
+    window.currentIncident =
+        incident;
+
+
+    window.currentIncidentId =
+        incidentId;
+
+
+    window.currentService =
+        service;
+
+
+    window.currentSeverity =
+        severity;
+
+
+    window.currentReportedAt =
+        reportedAt;
+
+
+    // ---------------- TIMELINE ----------------
+
+    updateTimeline(1);
+
+
+    const button =
+        document.getElementById(
+            "investigateBtn"
+        );
+
+
+    button.innerText =
+        "Investigating...";
+
+
+    button.classList.add(
+        "loading"
+    );
+
+
+    try {
+
+
+        const response =
+            await fetch(
+                "/investigate",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        incident_id:
+                            incidentId,
+
+                        service:
+                            service,
+
+                        severity:
+                            severity,
+
+                        incident:
+                            incident,
+
+                        reported_at:
+                            reportedAt
+
+                    })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.detail ||
+                "Investigation failed."
+            );
+
+        }
+
+
+        // ---------------- MEMORY ----------------
+
+        updateTimeline(2);
+
+
+        // ---------------- SUMMARY ----------------
+
+        document.getElementById(
+            "summaryId"
+        ).textContent =
+            data.incident_id;
+
+
+        document.getElementById(
+            "summaryService"
+        ).textContent =
+            data.service;
+
+
+        const severityElement =
+            document.getElementById(
+                "summarySeverity"
+            );
+
+
+        severityElement.textContent =
+            data.severity;
+
+
+        severityElement.className =
+            "summary-value severity-" +
+            data.severity.toLowerCase();
+
+
+        document.getElementById(
+            "summaryMemoryCount"
+        ).textContent =
+            data.memory_count;
+
+
+        // ---------------- MEMORY LIST ----------------
+
+        const memoryBox =
+            document.getElementById(
+                "memories"
+            );
+
+
+        memoryBox.innerHTML = "";
+
+
+        if (
+            !data.memories ||
+            data.memories.length === 0
+        ) {
+
+            memoryBox.innerHTML =
+                `<div class="empty">
+                    No relevant historical memories found.
+                 </div>`;
+
+        } else {
+
+
+            const header =
+                document.createElement(
+                    "div"
+                );
+
+
+            header.className =
+                "memory-header";
+
+
+            header.textContent =
+                `${data.memories.length} historical memories recalled by Hindsight`;
+
+
+            memoryBox.appendChild(
+                header
+            );
+
+
+            data.memories.forEach(
+                memory => {
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    div.className =
+                        "memory";
+
+
+                    div.textContent =
+                        memory;
+
+
+                    memoryBox.appendChild(
+                        div
+                    );
+
+                }
+            );
+
+        }
+
+
+        // ---------------- IMPACT ----------------
+
+        updateMemoryImpact(
+            data.memories || []
+        );
+
+
+        // ---------------- AI ----------------
+
+        document.getElementById(
+            "analysis"
+        ).textContent =
+            data.analysis ||
+            "No analysis returned.";
+
+
+        updateTimeline(3);
+
+
+        // ---------------- SCROLL ----------------
+
+        document.getElementById(
+            "analysis"
+        ).scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+
+    } catch (error) {
+
+
+        updateTimeline(1);
+
+
+        alert(
+            "Investigation failed: " +
+            error.message
+        );
+
+
+    } finally {
+
+
+        button.innerText =
+            "Investigate Incident";
+
+
+        button.classList.remove(
+            "loading"
+        );
+
+    }
+
+}
+
+
+
+// ============================================================
+// SAVE RESOLUTION
+// ============================================================
+
+async function saveResolution() {
+
+
+    const incident =
+        window.currentIncident ||
+        document.getElementById(
+            "incident"
+        ).value.trim();
+
+
+    const incidentId =
+        window.currentIncidentId ||
+        document.getElementById(
+            "incidentId"
+        ).value.trim();
+
+
+    const service =
+        window.currentService ||
+        document.getElementById(
+            "service"
+        ).value.trim();
+
+
+    const severity =
+        window.currentSeverity ||
+        document.getElementById(
+            "severity"
+        ).value;
+
+
+    const reportedAt =
+        window.currentReportedAt ||
+        getTimestamp();
+
+
+    const resolution =
+        document.getElementById(
+            "resolution"
+        ).value.trim();
+
+
+    const engineerNote =
+        document.getElementById(
+            "engineerNote"
+        ).value.trim();
+
+
+    const successful =
+        document.querySelector(
+            'input[name="outcome"]:checked'
+        ).value === "true";
+
+
+    // ---------------- VALIDATION ----------------
+
+    if (!incident) {
+
+        alert(
+            "Investigate an incident first."
+        );
+
+        return;
+
+    }
+
+
+    if (!incidentId) {
+
+        alert(
+            "Please enter an Incident ID."
+        );
+
+        return;
+
+    }
+
+
+    if (!service) {
+
+        alert(
+            "Please enter a service."
+        );
+
+        return;
+
+    }
+
+
+    if (!resolution) {
+
+        alert(
+            "Enter the resolution first."
+        );
+
+        return;
+
+    }
+
+
+    // ---------------- TIMELINE ----------------
+
+    updateTimeline(4);
+
+
+    const status =
+        document.getElementById(
+            "learningStatus"
+        );
+
+
+    status.innerText =
+        "Saving experience to Hindsight...";
+
+
+    try {
+
+
+        const response =
+            await fetch(
+                "/resolve",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        incident_id:
+                            incidentId,
+
+                        service:
+                            service,
+
+                        severity:
+                            severity,
+
+                        incident:
+                            incident,
+
+                        resolution:
+                            resolution,
+
+                        successful:
+                            successful,
+
+                        engineer_note:
+                            engineerNote,
+
+                        reported_at:
+                            reportedAt
+
+                    })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.detail ||
+                "Could not save experience."
+            );
+
+        }
+
+
+        // ---------------- LEARNED ----------------
+
+        updateTimeline(5);
+
+
+        document.getElementById(
+            "impactLearned"
+        ).innerText =
+            "1";
+
+
+        document.getElementById(
+            "impactNote"
+        ).innerText =
+            "✓ This incident outcome has been stored in Hindsight for future investigations.";
+
+
+        status.innerText =
+            "✓ " + data.message;
+
+
+        document.getElementById(
+            "resolution"
+        ).value = "";
+
+
+        document.getElementById(
+            "engineerNote"
+        ).value = "";
+
+
+    } catch (error) {
+
+
+        updateTimeline(3);
+
+
+        status.innerText =
+            "Failed to save experience: " +
+            error.message;
+
+    }
+
+}
+
+
+
+// ============================================================
+// INITIAL PAGE SETUP
+// ============================================================
+
+window.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        setDefaultTimestamp();
+
+        resetTimeline();
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>
